@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: navy;
+            position: relative;
+        }
+
+        div {
+            margin: 10px;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid navy;
+            border-radius: 5px;
+            background-color: white;
+            color: navy;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: navy;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: navy;
+        }
+
+        a {
+            text-decoration: none;
+            color: navy;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        input[type="submit"] {
+            background-color: navy;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        p {
+            margin: 10px 0;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="{{ url_for('static', filename='BravesLogo.png') }}" class="logo">
+        <br><br>
+        <div>
+            <a href="{{ url_for('mouse_program') }}" class="button" style="background-color: navy;">Corrected mouse position program</a>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="column">
+                Search for a hitter to view their spray chart and other player-specific metrics:
+                <form action="{{ url_for('show_hitter') }}" method="post">
+                    <input list="hitters" name="hitter_name">
+                    <datalist id="hitters">
+                        {% for hitter in hitters %}
+                        <option value="{{ hitter }}">
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+            <div class="column">
+                Search for a pitcher to view player-specific metrics:
+                <form action="{{ url_for('show_pitcher') }}" method="post">
+                    <input list="pitchers" name="pitcher_name">
+                    <datalist id="pitchers">
+                        {% for pitcher in pitchers %}
+                        <option value="{{ pitcher }}">
+                        {% endfor %}
+                    </datalist>
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+        </div>
+        <div>
+            <br>
+            Heatmap outlining correlations between different numeric values in the dataset
+            <br>
+            <img src="{{ url_for('static', filename='correlation_matrix.png') }}">
+            <br>
+            <p>As modeled in the heatmap, the strongest positive correlation is between Launch Angle/Hang Time,
+                Launch Angle/Hit Distance, and Hang Time/Hit Distance. Makes sense,
+                as we logically already know that balls hit higher will travel further and stay in the air longer.
+                Exit Velo is the next strongest predictor of hit distance, although it displays half the correlation
+                coefficient that launch angle does. This is because the most flush hit balls (i.e.
+                the hardest hit) will typically result in less extreme launch angles (think more line drives than fly balls, so they
+                don't travel as far in terms of raw distance).
+            </p>
+            <p>
+                The main question to examine for practical use is: "Which batted ball characteristic is most correlated to
+                the outcome of the play?" I've created a binary classification for the hit outcome, where
+                a single, double, triple, and homerun are encoded as 1 (a favorable outcome), and unfavorable
+                outcomes like outs, fielder's choices, and errors are encoded as 0.
+                In our heatmap, the strongest predictor of a positive outcome on any given batted ball is exit velocity,
+                with a correlation coefficient of 0.26. The next biggest predictor is hit distance, but this is
+                likely an incidence of collinearity (since exit velo is a predictor of hit distance,
+                hit distances are transitively a predictor of outcome)
+            </p>
+        </div>
+        <div>
+            <br>
+            The following bar plot takes a closer look at the relationship between exit velo and outcome:
+            <br>
+            <img src="{{ url_for('static', filename='ev_by_outcome.png') }}">
+            <br>
+            The trend modeled in this chart supports the correlation shown by the heatmap - the average
+            exit velo for each of the favorable outcomes is greater than that for unfavorable outcomes, and it
+            has a marginal increase every time the outcome gets more favorable. In other words, there is an average exit
+            velo hierarchy where homeruns are king, followed by triples, doubles, singles, and all the unfavorable outcomes.
+        </div>
+    </div>
+</body>
+</html>

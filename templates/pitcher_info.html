@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: navy;
+            position: relative;
+        }
+
+        div {
+            margin: 10px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            background-color: navy;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    <a href="{{ url_for('home') }}">
+        <button>Home</button>
+    </a>
+</div>
+<div>
+    {{ pitcher }}
+</div>
+<div>
+    The average EV of all recorded balls hit off of {{ pitcher }} is {{ average_ev_against }} mph.
+    This places him {{ ranking }} out of 430 recorded pitchers, where 1 is the pitcher with the lowest average
+    EV against.
+</div>
+<br><br>
+<div>
+    The average hang time of all recorded balls hit off of {{ pitcher }} is {{ average_hang_time }} sec.
+    This places him {{ rank_by_hang_time }} out of 430 recorded pitchers, where 1 is the pitcher with the highest average
+    hang time against. This data is relevant because it's a relative indicator of how good a pitcher is at keeping the
+    ball out of the air. The higher the average hang time against, the more opposing hitters are able to elevate
+    the ball of a given pitcher.
+</div>
+</body>
+</html>

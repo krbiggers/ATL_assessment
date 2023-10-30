@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ Hitter }} Analytics</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            color: navy;
+            position: relative;
+        }
+
+        div {
+            margin: 10px;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            background-color: navy;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        video {
+            max-width: 100%;
+        }
+
+        .logo {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <img src="{{ url_for('static', filename='BravesLogo.png') }}" class="logo">
+    <div>
+        <a href="{{ url_for('home') }}">
+            <button>Home</button>
+        </a>
+    </div>
+    <div>
+        {{ hitter }}
+    </div>
+    <div>
+        <div>Spray Chart:</div>
+        <img src="{{ chartpath }}" alt="Spray Chart">
+        <div>Calculated using exit direction and hit distance to determine destination coordinate relative to home plate</div>
+    </div>
+    <div>
+        Maximum Recorded Exit Velo: {{ max_EV_num }} mph, featured below
+    </div>
+    <br>
+    <div>
+        <video controls height="400" width="800">
+            <source src="{{ max_EV_link }}" type="video/mp4">
+        </video>
+    </div>
+    <br>
+    <div>
+        The average exit velo for all recorded balls hit by {{ hitter }} is {{ average_ev }} mph. This places
+        him {{ ranking }} out of 479 recorded hitters
+    </div>
+</body>
+</html>

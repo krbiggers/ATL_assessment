@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mouse Position Display</title>
+</head>
+<!--
+  Errors: 
+    unnecessary hashes in span element names
+    no jquery library added, which is necessary to use $ to access elements
+    no event argument in updateXY function definition (needed to access event.pageX, event.pageY)
+    distance is calculated from the upper left corner since that is coordinate (0,0)
+-->
+
+<body>
+  <!--Removed unnecessary hashes from the span element names-->
+  <p>The mouse is located at position (<span id="xPos"></span>, <span id="yPos"></span>), and is <span id="dist"></span> pixels from the lower-left corner.</p>
+    <a href="{{ url_for('home') }}">
+        <button>Return Home</button>
+    </a>
+</body>
+</html>
+
+<!--Added JQuery library, based on the usage of $ symbol to access elements-->
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+<script>
+$(document).mousemove(function(event){
+  //added event argument to the updateXY function call
+  updateXY(event);
+  //since the lower left coordinate is not (0, 0), we need to grab the height of the window for use in a comparison
+  var windowHeight = $(window).height();
+  var x = (event.pageX);
+  var y = (event.pageY);
+
+  //yDist must be windowHeight - y because the lower left corner has the max Y coordinate allowed by the window size
+  var yDist = windowHeight - y;
+  //xDist is x because the lower left corner has X coordinate 0
+  var xDist = x; 
+  //y changed to yDist, the calculated distance from the lower left y coordinate
+  //you could keep x instead of xDist, but I substituted for readability
+  var dist = Math.sqrt(xDist ** 2 + yDist ** 2);
+  $('#dist').text(dist);
+});
+
+//added event argument to updateXY function definition in order to access event.pageX and event.pageY
+function updateXY(event) {
+  var x = event.pageX;
+  var y = event.pageY;
+
+  $('#xPos').text(x);
+  $('#yPos').text(y);
+}
+</script>
