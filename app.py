@@ -125,7 +125,7 @@ def show_pitcher():
     pitcher = request.form.get('pitcher_name')
     if not pitcher:
         return render_template('home.html')
-    data = pd.read_excel(r'C:\Users\krbig\OneDrive\Desktop\ATLBraves_assessment_Biggers\BattedBallData.xlsx')
+    data = pd.read_excel(r'BattedBallData.xlsx')
     data = data.drop(columns=['HIT_SPIN_RATE'])
     undefined_result = data['PLAY_OUTCOME'] == 'Undefined'
     data = data[~undefined_result]
