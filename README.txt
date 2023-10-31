@@ -1,6 +1,6 @@
 Dino Biggers - take home project submission
 
-To run this project, you will need Python, version 3.9 or newer
+To run this project, you will need Python v3.9
 
 First, use this github repo link to clone the repository locally: 
 git@github.com:krbiggers/ATL_assessment.git
