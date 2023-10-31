@@ -13,6 +13,7 @@ For data visualization/manipulation:
 - numpy
 - matplotlib
 - seaborn
+- openpyxl
 
 You can install all of these using this command in the terminal: 
 pip install -r requirements.txt
