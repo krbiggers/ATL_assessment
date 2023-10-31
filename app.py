@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():  # put application's code here
-    data = pd.read_excel(r'C:\Users\krbig\OneDrive\Desktop\ATLBraves_assessment_Biggers\BattedBallData.xlsx')
+    data = pd.read_excel(r'BattedBallData.xlsx')
     data = data.drop(columns=['HIT_SPIN_RATE'])
     undefined_result = data['PLAY_OUTCOME'] == 'Undefined'
     data = data[~undefined_result]
@@ -89,7 +89,7 @@ def show_hitter():
     hitter = request.form.get('hitter_name')
     if not hitter:
         return render_template('home.html')
-    data = pd.read_excel(r'C:\Users\krbig\OneDrive\Desktop\ATLBraves_assessment_Biggers\BattedBallData.xlsx')
+    data = pd.read_excel(r'BattedBallData.xlsx')
     data = data.drop(columns=['HIT_SPIN_RATE'])
     undefined_result = data['PLAY_OUTCOME'] == 'Undefined'
     data = data[~undefined_result]
