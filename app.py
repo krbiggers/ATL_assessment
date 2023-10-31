@@ -3,8 +3,10 @@ import pandas as pd
 import numpy as np
 import matplotlib
 import seaborn as sns
+
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+
 app = Flask(__name__)
 
 
@@ -102,7 +104,8 @@ def show_hitter():
     max_ev_num = relevant_data.loc[max_ev_idx, 'EXIT_SPEED'].round(2)
     max_ev_link = relevant_data.loc[max_ev_idx, 'VIDEO_LINK']
     return render_template('hitter_info.html', hitter=hitter, chartpath=f'static/scatterplot{hitter_id}.png',
-                               max_EV_num=max_ev_num, max_EV_link=max_ev_link, average_ev=average_ev, ranking=ranking)
+                           max_EV_num=max_ev_num, max_EV_link=max_ev_link, average_ev=average_ev, ranking=ranking)
+
 
 @app.route('/generate_spraychart')
 def generate_spraychart(relevant_data, hitter_id):
@@ -136,6 +139,7 @@ def show_pitcher():
     return render_template('pitcher_info.html', pitcher=pitcher, average_ev_against=average_ev_against,
                            ranking=ranking, average_hang_time=average_hang_time,
                            rank_by_hang_time=hang_time_ranking)
+
 
 if __name__ == '__main__':
     app.run()
