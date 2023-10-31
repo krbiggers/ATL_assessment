@@ -103,8 +103,7 @@ def show_hitter():
     max_ev_idx = relevant_data['EXIT_SPEED'].idxmax()
     max_ev_num = relevant_data.loc[max_ev_idx, 'EXIT_SPEED'].round(2)
     max_ev_link = relevant_data.loc[max_ev_idx, 'VIDEO_LINK']
-    return render_template('hitter_info.html', hitter=hitter, chartpath=f'static//scatterplot{hitter_id}.png',
-                           max_EV_num=max_ev_num, max_EV_link=max_ev_link, average_ev=average_ev, ranking=ranking)
+    return render_template('hitter_info.html', hitter=hitter, chartpath=f'static//scatterplot{hitter_id}.png', max_EV_num=max_ev_num, max_EV_link=max_ev_link, average_ev=average_ev, ranking=ranking)
 
 
 @app.route('/generate_spraychart')
